@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IndictiveCore - Updated</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-purple: #8A2BE2;
+            --secondary-purple: #4c1d95;
+            --accent-cyan: #00f3ff;
+            --glass-bg: rgba(20, 20, 30, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --sidebar-width: 300px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            /* Mencegah zoom tidak diinginkan pada perangkat DPI tinggi */
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Animated Background */
+            background: radial-gradient(circle at 50% 20%, #1a0b2e 0%, #000 60%);
+            background-size: 200% 200%;
+            animation: bgPulse 10s ease infinite;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        @keyframes bgPulse {
+            0% { background-position: 50% 0%; }
+            50% { background-position: 50% 20%; }
+            100% { background-position: 50% 0%; }
+        }
+
+        /* CONTAINER LOCK SYSTEM - UTAMA */
+        .container-lock {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* Container utama - FULL RESPONSIVE */
+        .app-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+            overflow: hidden;
+        }
+
+        /* ===== MEDIA QUERIES UNTUK SEMUA DEVICE ===== */
+        
+        /* Untuk semua device - LOCK UTAMA */
+        @media (max-width: 767px) {
+            .container-lock {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            html {
+                overflow-x: hidden;
+            }
+        }
+
+        /* Tablet kecil dan HP besar */
+        @media (min-width: 415px) and (max-width: 768px) {
+            .app-container {
+                max-width: 100%;
+                border-radius: 0;
+            }
+            
+            .hero-card {
+                height: 35vh !important;
+            }
+            
+            .menu-grid {
+                padding: 5% 10% !important;
+            }
+            
+            .circle-btn {
+                width: 60px !important;
+                height: 60px !important;
+                font-size: 1.6rem !important;
+            }
+            
+            .menu-label {
+                font-size: 0.9rem !important;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+        }
+
+        /* Tablet besar */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .app-container {
+                max-width: 768px;
+                border-radius: 20px;
+                height: 95vh;
+            }
+            
+            .hero-card {
+                height: 40vh !important;
+            }
+            
+            .menu-grid {
+                padding: 5% 15% !important;
+            }
+            
+            .circle-btn {
+                width: 70px !important;
+                height: 70px !important;
+                font-size: 1.8rem !important;
+            }
+            
+            .menu-label {
+                font-size: 1rem !important;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+
+        /* Desktop kecil */
+        @media (min-width: 1025px) {
+            .app-container {
+                max-width: 414px;
+                height: 90vh;
+                border-radius: 20px;
+            }
+        }
+
+        /* HP kecil (kurang dari 360px) */
+        @media (max-width: 360px) {
+            .container-lock {
+                min-width: 320px;
+            }
+            
+            .header-title {
+                font-size: 1.2rem !important;
+            }
+            
+            .hero-title {
+                font-size: 1.3rem !important;
+            }
+            
+            .menu-grid {
+                padding: 5% 3% !important;
+            }
+            
+            .circle-btn {
+                width: 50px !important;
+                height: 50px !important;
+                border-radius: 15px !important;
+                font-size: 1.2rem !important;
+            }
+            
+            .menu-label {
+                font-size: 0.7rem !important;
+            }
+            
+            .promo-banner {
+                height: 70px !important;
+            }
+            
+            .banner-text {
+                font-size: 0.8rem !important;
+            }
+            
+            .banner-text strong {
+                font-size: 0.9rem !important;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* HP dengan tinggi layar pendek */
+        @media (max-height: 700px) {
+            .hero-card {
+                height: 30vh !important;
+            }
+            
+            .menu-grid {
+                padding: 3% 5% !important;
+            }
+            
+            .promo-banner {
+                height: 70px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .stats-card {
+                margin-bottom: 15px !important;
+            }
+        }
+
+        /* Perangkat dengan DPI tinggi - penyesuaian khusus */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .hero-card, .circle-btn, .tool-card, .promo-banner, .stats-card {
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+            
+            /* Meningkatkan ketajaman teks */
+            .header-title, .hero-title, .stats-title, .tool-name {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* Untuk tablet landscape */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .container-lock {
+                max-width: 100%;
+                transform: none;
+            }
+            
+            .hero-card {
+                height: 45vh !important;
+            }
+            
+            .dashboard-section {
+                padding: 90px 15px 15px;
+            }
+        }
+
+        /* ===== STYLING UTAMA ===== */
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Staggered Animation Classes */
+        .anim-element {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5% 5% 3%;
+            flex-shrink: 0;
+            z-index: 50;
+        }
+
+        .header-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+        }
+
+        /* Style Icon Button */
+        .icon-btn {
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            color: #eee;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .icon-btn:active {
+            transform: scale(0.9);
+            background: rgba(138, 43, 226, 0.5);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            max-width: var(--sidebar-width);
+            height: 100%;
+            background: #000;
+            z-index: 999;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            position: relative;
+            height: 25vh;
+            min-height: 160px;
+            width: 100%;
+            background-image: url('https://files.catbox.moe/azqovg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 5%;
+            border-bottom: 2px solid #fff;
+            overflow: hidden;
+        }
+
+        .sidebar-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
+            z-index: 2;
+        }
+
+        .sidebar-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            color: #ccc;
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        .sidebar-menu {
+            padding: 5% 0;
+            flex: 1;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 4% 8%;
+            color: #fff;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            padding-left: 10%;
+        }
+
+        .sidebar-item i {
+            margin-right: 15px;
+            width: 25px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* CREDITS SECTION - POSISI BARU */
+        .credits-section {
+            padding: 5% 8%;
+            margin-top: 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            background: rgba(20, 20, 25, 0.5);
+        }
+
+        .credits-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .credit-row {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .credit-row:last-child {
+            border-bottom: none;
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 15px;
+            font-family: 'Courier Prime', monospace;
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Overlay */
+        .overlay-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(3px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .overlay-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 70px; /* Space for navbar */
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section { 
+            padding: 3% 5%; 
+            perspective: 1000px; 
+        }
+
+        .hero-card {
+            position: relative;
+            width: 100%;
+            height: 25vh;
+            min-height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px -10px rgba(138, 43, 226, 0.4);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0,0,0,0.5) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            opacity: 0.2;
+            z-index: 2;
+        }
+
+        .hero-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s; 
+        }
+        .hero-card:hover .hero-img { transform: scale(1.05); }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            padding: 8%;
+            background: linear-gradient(to top, #000 10%, transparent);
+            z-index: 3;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 0px var(--primary-purple);
+        }
+
+        /* --- MENU GRID --- */
+        .menu-grid {
+            display: flex;
+            justify-content: space-between;
+            padding: 5% 8%;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 22%;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+            margin-bottom: 5%;
+        }
+
+        .menu-item:active { transform: scale(0.95); }
+
+        .circle-btn {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(30,30,40,1), rgba(20,20,30,1));
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: #ccc;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .circle-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            transform: scale(0);
+            transition: 0.4s;
+        }
+
+        .menu-item:hover .circle-btn::before { transform: scale(1); }
+        
+        .menu-item:hover .circle-btn {
+            border-color: var(--primary-purple);
+            color: white;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .menu-label { 
+            font-size: 0.75rem; 
+            color: #888; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            text-align: center;
+        }
+
+        /* --- BANNER TELEGRAM --- */
+        .promo-banner {
+            margin: 0 5% 5%;
+            height: 80px;
+            background: linear-gradient(90deg, #1f1f2e 0%, #2d1b4e 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        
+        .promo-banner:active { transform: scale(0.98); }
+
+        .promo-banner::after {
+            content: '';
+            position: absolute;
+            width: 100px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            left: -100px;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100px; }
+            20% { left: 400px; }
+            100% { left: 400px; }
+        }
+
+        .banner-icon-container {
+            width: 45px; 
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .banner-icon-container i { font-size: 1.4rem; color: #fff; }
+
+        .banner-text { 
+            flex-grow: 1; 
+            color: white; 
+            line-height: 1.3; 
+            font-size: 0.85rem; 
+            z-index: 2; 
+        }
+        .banner-text strong { 
+            display: block; 
+            font-size: 1rem; 
+            color: #a29bfe; 
+        }
+        .banner-arrow { 
+            font-size: 0.9rem; 
+            color: #fff; 
+            transition: 0.3s; 
+            flex-shrink: 0;
+        }
+        .promo-banner:hover .banner-arrow { transform: translateX(5px); }
+
+        /* --- SERVER STATS CARD --- */
+        .stats-card {
+            margin: 0 5% 5%;
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            bord
